@@ -8,6 +8,21 @@ public class Program
 {
     static void Main(string[] args)
     {
+        /**
+        LoggerBuilder builder = new();
+        builder.WithLevelLimit(LogLevel.Info)
+               .WithLogToConsole()
+               .WithFormatter()
+
+        Logger logger = builder.Build();
+
+        logger.Log(LogLevel.Info, "sectionName", "Your log message.");
+        logger.Log(LogLevel.Warn, "sectionName", "subSectionName", "Your log message.");
+        logger.LogInfo("sectionName", "easier to log info message.");
+        logger.LogFatal("sectionName", "subSection", "you can also have `subSection` in easier way.");
+        logger.LogTrace("sectionName", "this log message will not be logged because we limit the `LevelLimit` to `Info`");
+        */
+        
         {
             using StreamWriter writer = new("log.txt");
 

@@ -7,6 +7,12 @@
 	<Title>Saladim.SalLogger</Title>
 	<Authors>Saplonily</Authors>
 	<Description>A very simple light logger.</Description>
+	<PackageProjectUrl></PackageProjectUrl>
+	<RepositoryUrl>https://github.com/saladim-org/Saladim.SalLogger</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>log;logger;light</PackageTags>
+	<PackageReleaseNotes>初始化 Init</PackageReleaseNotes>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
@@ -32,4 +38,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
     <DefineConstants>$(DefineConstants)</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 </Project>
