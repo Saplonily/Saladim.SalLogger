@@ -1,48 +1,53 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net6.0;netcoreapp3.1</TargetFrameworks>
-	<LangVersion>preview</LangVersion>
-	<PlatformTarget>AnyCPU</PlatformTarget>
-	<Title>Saladim.SalLogger</Title>
-	<Authors>Saplonily</Authors>
-	<Description>A very simple light logger.</Description>
-	<PackageProjectUrl></PackageProjectUrl>
-	<RepositoryUrl>https://github.com/saladim-org/Saladim.SalLogger</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-	<PackageTags>log;logger;light</PackageTags>
-	<PackageReleaseNotes>初始化 Init</PackageReleaseNotes>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net6.0;netcoreapp3.1;netstandard2.0</TargetFrameworks>
+		<LangVersion>preview</LangVersion>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<Title>Saladim.SalLogger</Title>
+		<Authors>Saplonily</Authors>
+		<Description>A very simple light logger.</Description>
+		<PackageProjectUrl>https://www.nuget.org/packages/Saladim.SalLogger/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/saladim-org/Saladim.SalLogger</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>log;logger;light</PackageTags>
+		<PackageReleaseNotes>更改输出日志的默认行为</PackageReleaseNotes>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
-    <DefineConstants>$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+		<Version>1.2.0</Version>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-    <DefineConstants>$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+		<DefineConstants>$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
-    <DefineConstants>$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+		<DefineConstants>$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
-    <DefineConstants>$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+		<DefineConstants>$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
-    <DefineConstants>$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+		<DefineConstants>$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
-    <DefineConstants>$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
+		<DefineConstants>$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
+		<DefineConstants>$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
 </Project>

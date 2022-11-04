@@ -60,7 +60,7 @@ public class Program
                 }
                 catch (Exception ex2)
                 {
-                    logger.LogError("Main", ex2, suffix: "这是后缀", extractChain: true);
+                    logger.LogError("Main", ex2, suffix: "这是后缀");
                     logger.LogError("Main", ex2);
                     logger.LogError("Main", ex2, prefix: "前缀11111", suffix: "后缀11111");
                 }
