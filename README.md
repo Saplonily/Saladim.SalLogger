@@ -5,7 +5,7 @@
 </div>
 
 ## 构建 Build
-本项目使用Visual Studio 2022创建,面向`.net standard2.1`,`.net core 3.1`,`.net 6.0`  
+本项目使用Visual Studio 2022创建,面向`.net standard2.1`,`.net core 3.1`,`.net 6.0`  ,`.net standard2.0`
 使用vs2022的默认构建方法即可
 
 ## 使用 Usage

@@ -32,7 +32,7 @@ public partial class Logger
         LogAction?.Invoke(content);
     }
 
-    protected bool NeedLogging(LogLevel logLevel)
+    public bool NeedLogging(LogLevel logLevel)
         => (int)logLevel >= (int)LogLevelLimit;
 
     public void Log(LogLevel logLevel, string section, string? subSection, string content)
