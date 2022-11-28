@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Saladim.SalLogger;
@@ -27,13 +28,23 @@ public partial class Logger
 
     internal Logger() { }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected void LogRaw(string content)
     {
         LogAction?.Invoke(content);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool NeedLogging(LogLevel logLevel)
         => (int)logLevel >= (int)LogLevelLimit;
+
+    public void LogRaw(LogLevel logLevel, string str)
+    {
+        if (NeedLogging(logLevel))
+        {
+            LogRaw(str);
+        }
+    }
 
     public void Log(LogLevel logLevel, string section, string? subSection, string content)
     {

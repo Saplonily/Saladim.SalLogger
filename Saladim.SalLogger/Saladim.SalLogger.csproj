@@ -11,12 +11,12 @@
 		<RepositoryUrl>https://github.com/saladim-org/Saladim.SalLogger</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>log;logger;light weight</PackageTags>
-		<PackageReleaseNotes>公开NeedLoggin方法</PackageReleaseNotes>
+		<PackageReleaseNotes>加入一个绕过格式化器的LogRaw方法</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 
-		<Version>1.2.1</Version>
+		<Version>1.3.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
