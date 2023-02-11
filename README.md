@@ -4,6 +4,9 @@
     一个被建议用于游戏/小框架的轻量级日志框架
 </div>
 
+## 引用
+你可以到nuget上搜索SalLogger以nuget包形式安装, 或者直接引入项目全代码(在[gist](https://gist.github.com/Saplonily/2b23e2cfa00223fa27c483af098d27e1)中)
+
 ## 构建 Build
 本项目使用Visual Studio 2022创建,面向`.net standard2.1`,`.net core 3.1`,`.net 6.0`  ,`.net standard2.0`
 使用vs2022的默认构建方法即可
