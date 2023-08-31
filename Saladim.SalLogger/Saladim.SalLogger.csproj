@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.1;netstandard2.0;net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net2;net452;net472;netstandard1.3;netstandard2.0;net6.0;net7.0</TargetFrameworks>
 		<LangVersion>preview</LangVersion>
 		<PlatformTarget>AnyCPU</PlatformTarget>
 		<Title>Saladim.SalLogger</Title>
