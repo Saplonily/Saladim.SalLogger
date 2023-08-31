@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 
 namespace Saladim.SalLogger;
 
@@ -13,11 +15,11 @@ public partial class Logger
         => Log(LogLevel.Trace, section, null, content);
 
     public void LogTrace(string section, string subSection, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Trace, section, subSection, exception, prefix, suffix, autoExtractChain);
 
     public void LogTrace(string section, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Trace, section, null, exception, prefix, suffix, autoExtractChain);
 
     #endregion
@@ -31,11 +33,11 @@ public partial class Logger
         => Log(LogLevel.Debug, section, null, content);
 
     public void LogDebug(string section, string subSection, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Debug, section, subSection, exception, prefix, suffix, autoExtractChain);
 
     public void LogDebug(string section, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Debug, section, null, exception, prefix, suffix, autoExtractChain);
 
     #endregion
@@ -48,11 +50,11 @@ public partial class Logger
         => Log(LogLevel.Info, section, null, content);
 
     public void LogInfo(string section, string subSection, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Info, section, subSection, exception, prefix, suffix, autoExtractChain);
 
     public void LogInfo(string section, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Info, section, null, exception, prefix, suffix, autoExtractChain);
 
     #endregion
@@ -67,11 +69,11 @@ public partial class Logger
         => Log(LogLevel.Warn, section, null, content);
 
     public void LogWarn(string section, string subSection, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Warn, section, subSection, exception, prefix, suffix, autoExtractChain);
 
     public void LogWarn(string section, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Warn, section, null, exception, prefix, suffix, autoExtractChain);
 
     #endregion
@@ -85,11 +87,11 @@ public partial class Logger
         => Log(LogLevel.Error, section, null, content);
 
     public void LogError(string section, string subSection, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Error, section, subSection, exception, prefix, suffix, autoExtractChain);
 
     public void LogError(string section, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Error, section, null, exception, prefix, suffix, autoExtractChain);
 
     #endregion
@@ -103,11 +105,11 @@ public partial class Logger
         => Log(LogLevel.Fatal, section, null, content);
 
     public void LogFatal(string section, string subSection, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Fatal, section, subSection, exception, prefix, suffix, autoExtractChain);
 
     public void LogFatal(string section, Exception exception,
-        string prefix = null, string suffix = null, bool autoExtractChain = true)
+        string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(LogLevel.Fatal, section, null, exception, prefix, suffix, autoExtractChain);
 
     #endregion
