@@ -1,12 +1,10 @@
 ﻿#nullable enable
-using System.Collections.Generic;
+using System;
 
 namespace Saladim.SalLogger;
 
 public partial class LoggerBuilder
 {
-    #region 本体
-
     private LogAction? actions;
     private LogFormatter? formatter;
     private LogLevel levelLimit = LogLevel.Info;
@@ -45,12 +43,6 @@ public partial class LoggerBuilder
         return this;
     }
 
-    #endregion
-
-    #region 一堆Action
-
     public LoggerBuilder WithLogToConsole()
-        => this.WithAction(LogActions.LogToConsole);
-
-    #endregion
+        => WithAction(Console.WriteLine);
 }

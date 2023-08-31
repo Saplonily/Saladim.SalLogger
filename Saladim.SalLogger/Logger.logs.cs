@@ -9,7 +9,6 @@ public partial class Logger
     public void LogTrace(string section, string subSection, string content)
         => Log(LogLevel.Trace, section, subSection, content);
 
-
     public void LogTrace(string section, string content)
         => Log(LogLevel.Trace, section, null, content);
 
@@ -28,7 +27,6 @@ public partial class Logger
     public void LogDebug(string section, string subSection, string content)
         => Log(LogLevel.Debug, section, subSection, content);
 
-
     public void LogDebug(string section, string content)
         => Log(LogLevel.Debug, section, null, content);
 
@@ -46,8 +44,6 @@ public partial class Logger
 
     public void LogInfo(string section, string subSection, string content)
         => Log(LogLevel.Info, section, subSection, content);
-
-
     public void LogInfo(string section, string content)
         => Log(LogLevel.Info, section, null, content);
 
@@ -85,7 +81,6 @@ public partial class Logger
     public void LogError(string section, string subSection, string content)
         => Log(LogLevel.Error, section, subSection, content);
 
-
     public void LogError(string section, string content)
         => Log(LogLevel.Error, section, null, content);
 
@@ -103,7 +98,6 @@ public partial class Logger
 
     public void LogFatal(string section, string subSection, string content)
         => Log(LogLevel.Fatal, section, subSection, content);
-
 
     public void LogFatal(string section, string content)
         => Log(LogLevel.Fatal, section, null, content);

@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Diagnostics;
 using System.Text;
 
 namespace Saladim.SalLogger;
@@ -27,14 +27,12 @@ public partial class Logger
     internal LogLevel LogLevelLimit = LogLevel.Info;
 
     internal Logger() { }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+  
     protected void LogRaw(string content)
     {
         LogAction?.Invoke(content);
     }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public bool NeedLogging(LogLevel logLevel)
         => (int)logLevel >= (int)LogLevelLimit;
 
@@ -65,7 +63,7 @@ public partial class Logger
         bool writePrefix = prefix is not null;
         if (exception.InnerException is not null && autoExtractChain)
         {
-            var exs = ExceptionHelper.GetChainedExceptions(exception);
+            var exs = GetChainedExceptions(exception);
             var firstException = exs[0];
             if (writePrefix)
             {
@@ -101,4 +99,16 @@ public partial class Logger
         Exception exception, string? prefix = null, string? suffix = null, bool autoExtractChain = true)
         => Log(logLevel, section, null, exception, prefix, suffix, autoExtractChain);
 
+    [DebuggerStepThrough]
+    public static List<Exception> GetChainedExceptions(Exception exception)
+    {
+        List<Exception> list = new();
+        Exception? cur = exception;
+        while (cur != null)
+        {
+            list.Add(cur);
+            cur = cur.InnerException;
+        }
+        return list;
+    }
 }
