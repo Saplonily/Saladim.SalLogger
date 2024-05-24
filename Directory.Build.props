@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <PathMap Condition="'$(SolutionDir)'==''">$(MSBuildProjectDirectory)=~/$(MSBuildProjectName)</PathMap>
+    <PathMap Condition="'$(SolutionDir)'!=''">$(SolutionDir)=/</PathMap>
+  </PropertyGroup>
+</Project>

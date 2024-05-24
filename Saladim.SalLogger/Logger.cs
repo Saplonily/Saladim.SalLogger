@@ -1,114 +1,90 @@
-﻿#nullable enable
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.Text;
 
 namespace Saladim.SalLogger;
 
-public delegate string LogFormatter(
-    LogLevel logLevel,
-    string section,
-    string? subSection,
-    string content
-    );
+public delegate void LogHandler(LogLevel logLevel, string section, string? subsection, string content);
+public delegate string LogFormatter(LogLevel logLevel, string section, string? subsection, string content);
+public delegate void FormattedLogHandler(string log);
 
-public delegate void LogAction(string content);
-
-public partial class Logger
+public sealed partial class Logger
 {
-    internal static readonly LogFormatter DefaultFormatter = DefaultFormatAction;
-    internal static string DefaultFormatAction(LogLevel logLevel, string section, string? subSection, string content)
-        => $"[{DateTime.Now.TimeOfDay:hh\\:mm\\:ss\\.f}] [{logLevel}:{section}" + (subSection is null ? "" : $"/{subSection}") + $"]: {content}";
+    private LogHandler? handler;
 
-    internal LogFormatter? Formatter = DefaultFormatter;
-    internal LogAction? LogAction;
-    internal LogLevel LogLevelLimit = LogLevel.Info;
+    public LogLevel LogLevelLimit { get; set; }
 
-    internal Logger() { }
-  
-    protected void LogRaw(string content)
+    public Logger()
     {
-        LogAction?.Invoke(content);
+        LogLevelLimit = LogLevel.Info;
     }
-    
-    public bool NeedLogging(LogLevel logLevel)
+
+    public Logger(LogLevel logLevelLimit)
+    {
+        if ((int)logLevelLimit is < 0 or > ((int)LogLevel.Fatal))
+            throw new ArgumentOutOfRangeException(nameof(logLevelLimit));
+        LogLevelLimit = logLevelLimit;
+    }
+
+    public static string DefaultFormatLog(LogLevel logLevel, string section, string? subsection, string content)
+        => $"[{DateTime.Now.TimeOfDay:hh\\:mm\\:ss\\.f}] [{logLevel}:{section}" + (subsection is null ? "" : $"/{subsection}") + $"]: {content}";
+
+    public bool ShouldLog(LogLevel logLevel)
         => (int)logLevel >= (int)LogLevelLimit;
 
-    public void LogRaw(LogLevel logLevel, string str)
+    public void Log(LogLevel logLevel, string section, string? subsection, string content)
     {
-        if (NeedLogging(logLevel))
-        {
-            LogRaw(str);
-        }
+        if (!ShouldLog(logLevel)) return;
+        handler?.Invoke(logLevel, section, subsection, content);
     }
 
-    public void Log(LogLevel logLevel, string section, string? subSection, string content)
+    public void AddLogHandler(LogHandler handler)
     {
-        if (!NeedLogging(logLevel)) return;
-        string? str = Formatter?.Invoke(logLevel, section, subSection, content);
-        if (str is null) return;
-        LogRaw(str);
+        if (handler is null)
+            throw new ArgumentNullException(nameof(handler));
+        this.handler += handler;
+    }
+
+    public void AddLogHandler(FormattedLogHandler handler)
+    {
+        if (handler is null)
+            throw new ArgumentNullException(nameof(handler));
+        AddLogHandler(handler, DefaultFormatLog);
+    }
+
+    public void AddLogHandler(FormattedLogHandler handler, LogFormatter formatter)
+    {
+        if (handler is null)
+            throw new ArgumentNullException(nameof(handler));
+        if (formatter is null)
+            throw new ArgumentNullException(nameof(formatter));
+        AddLogHandler((logLevel, section, subsection, content) => handler(formatter(logLevel, section, subsection, content)));
     }
 
     public void Log(LogLevel logLevel, string section, string content)
-        => Log(logLevel, section, null, content);
+        => Log(logLevel, section, subsection: null, content);
 
-    public void Log(LogLevel logLevel, string section, string? subSection,
-        Exception exception, string? prefix = null, string? suffix = null, bool autoExtractChain = true)
+    public void Log(LogLevel logLevel, string section, string? subsection, Exception exception, string? prefix = null)
     {
-        if (!NeedLogging(logLevel)) return;
-        StringBuilder sb = new();
+        if (!ShouldLog(logLevel)) return;
         bool writePrefix = prefix is not null;
-        if (exception.InnerException is not null && autoExtractChain)
+        if (writePrefix)
         {
-            var exs = GetChainedExceptions(exception);
-            var firstException = exs[0];
-            if (writePrefix)
-            {
-                sb.AppendLine(prefix);
-                sb.Append("   - ");
-            }
-            sb.AppendLine($"{firstException.GetType()} - {firstException.Message}");
-            var enumator = exs.GetEnumerator();
-            enumator.MoveNext();
-            while (enumator.MoveNext())
-            {
-                sb.Append("   - ");
-                sb.AppendLine($"{enumator.Current.GetType()} - {enumator.Current.Message}");
-                sb.AppendLine(enumator.Current.StackTrace);
-            }
-        }
-        else
-        {
-            if (writePrefix)
+            StringBuilder sb = new();
             {
                 sb.AppendLine(prefix);
                 sb.Append("   ");
+                sb.Append(exception.ToString());
             }
-            sb.AppendLine($"{exception.GetType()}  -  {exception.Message}");
-            sb.Append(exception.StackTrace);
-            if (writePrefix) sb.AppendLine();
+            Log(logLevel, section, subsection, sb.ToString());
         }
-        if (suffix is not null) sb.Append("   " + suffix);
-        this.Log(logLevel, section, subSection, sb.ToString());
-    }
-
-    public void Log(LogLevel logLevel, string section,
-        Exception exception, string? prefix = null, string? suffix = null, bool autoExtractChain = true)
-        => Log(logLevel, section, null, exception, prefix, suffix, autoExtractChain);
-
-    [DebuggerStepThrough]
-    public static List<Exception> GetChainedExceptions(Exception exception)
-    {
-        List<Exception> list = new();
-        Exception? cur = exception;
-        while (cur != null)
+        else
         {
-            list.Add(cur);
-            cur = cur.InnerException;
+            Log(logLevel, section, subsection, exception.ToString());
         }
-        return list;
     }
+
+    public void Log(LogLevel logLevel, string section, Exception exception, string? prefix = null)
+        => Log(logLevel, section, null, exception, prefix);
 }
+
+// TODO xml document comment

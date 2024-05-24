@@ -1,29 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net2;net452;net472;netstandard1.3;netstandard2.0;net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>net3.5;net4.5.2;net4.6.2;net4.7.2;netstandard1.0;netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
 		<LangVersion>preview</LangVersion>
-		<PlatformTarget>AnyCPU</PlatformTarget>
-		<Title>Saladim.SalLogger</Title>
-		<Authors>Saplonily</Authors>
-		<Description>A very simple light logger.</Description>
-		<PackageProjectUrl>https://www.nuget.org/packages/Saladim.SalLogger/</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/saladim-org/Saladim.SalLogger</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<PackageTags>log;logger;light weight</PackageTags>
-		<PackageReleaseNotes>清理了很多东西, 更改了tfw到更低的版本</PackageReleaseNotes>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<DefineConstants>$(DefineConstants)</DefineConstants>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
-		<Version>1.4.0</Version>
-	</PropertyGroup>
+  <PropertyGroup>
+    <Version>2.0.0</Version>
+    <Title>Saladim.SalLogger</Title>
+    <Authors>Saplonily</Authors>
+    <Description>A very simple light logger.</Description>
+    <PackageProjectUrl>https://www.nuget.org/packages/Saladim.SalLogger/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Saplonily/Saladim.SalLogger</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>log;logger;light weight</PackageTags>
+    <PackageReleaseNotes>Clean up</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<None Include="..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
+      <Visible>false</Visible>
 		</None>
 	</ItemGroup>
 

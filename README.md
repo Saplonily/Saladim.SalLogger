@@ -1,73 +1,100 @@
 # Saladim.SalLogger
 
 <div align="middle">
-    一个被建议用于游戏/小框架的轻量级日志框架
+    一个被建议用于游戏/小框架的轻量级日志框架 (或者叫做代码片段更合适)<br>
+    A lightweight logging framework (or better called a code snippet) recommended for games/small frameworks.
 </div>
 
-## 引用
-你可以到nuget上搜索SalLogger以nuget包形式安装, 或者直接引入项目全代码(在[gist](https://gist.github.com/Saplonily/2b23e2cfa00223fa27c483af098d27e1)中)
+## 引用 Reference
+你可以到 NuGet 上搜索 [`SalLogger`](https://www.nuget.org/packages/Saladim.SalLogger/) 以 NuGet 包形式安装,
+或者直接引入项目全代码(在 [gist](https://gist.github.com/Saplonily/2b23e2cfa00223fa27c483af098d27e1) 中)  
+You can search for [`SalLogger`](https://www.nuget.org/packages/Saladim.SalLogger/) on NuGet to install it as a NuGet package,
+or directly include the entire project code (available on [gist](https://gist.github.com/Saplonily/2b23e2cfa00223fa27c483af098d27e1)).
 
 ## 构建 Build
-项目本体很简单, 只需要简单的 `dotnet build` / IDE的一下`生成`键.
+项目本体很简单, 只需要简单的 `dotnet build` / 点 IDE 的一下 `生成` 键.  
+The project itself is very simple, just use dotnet build or click the Build button in your IDE.
 
 ## 使用 Usage
-核心类为`Logger`,位于`Saladim.SalLogger`命名空间下, 
-在开始记录日志前应该创建同命名空间的`LoggerBuilder`建造器,例如:
-```C#
-LoggerBuilder builder = new();
-builder.WithLevelLimit(LogLevel.Trace)
-       .WithLogToConsole();
-```
-`WithLevelLimit`限制了将被建造了logger真正输出日志的最低等级,日志等级(`LogLevel`)分为:
-- Trace
-- Debug
-- Info
-- Warn
-- Error
-- Fatal
+核心类为 `Logger`, 位于 `Saladim.SalLogger` 命名空间下,
+可以使用构造器直接构造一个 `Logger`:  
+The core class is `Logger`, located in the `Saladim.SalLogger` namespace.
+You can directly instantiate a `Logger` using its constructor:
 
-如果将限制等级设置为`Info`,那么`Debug`与`Trace`将不会被记录  
-`WithLogToConsole`指示建造器应该将这个输出到控制台上  
-配置完建造器后可使用建造器的`Build`方法获取一个`Logger`对象:
 ```C#
-Logger logger = builder.Build();
+Logger logger = new Logger(LogLevel.Info);
+logger.AddLogHandler(Console.WriteLine);
 ```
-`Logger`对象有许多重载方法,你可以选择适合情景的重载版本  
-例如如下实例:
+
+构造器的 `LogLevel` 类型的参数限制了 `Logger` 输出的最低等级, 日志等级 `LogLevel` 分为:  
+The constructor's `LogLevel` parameter sets the minimum logging level for the `Logger`. The `LogLevel` enum has the following levels:  
+
+- `Trace`
+- `Debug`
+- `Info`
+- `Warn`
+- `Error`
+- `Fatal`
+
+如果将限制等级设置为 `Info`, 那么 `Debug` 与 `Trace` 将不会被记录, 其余同理.  
+If you set the logging level to `Info`, `Debug` and `Trace` messages will not be recorded. The same applies to other levels.  
+
+`Logger` 对象有许多重载方法, 可以选择适合情景的重载版本:  
+The `Logger` class provides various overloaded methods to suit different scenarios:  
+
 ```C#
-logger.Log(LogLevel.Info, "sectionName", "Your log message.");
-logger.Log(LogLevel.Warn, "sectionName", "subSectionName", "Your log message.");
-logger.LogInfo("sectionName", "easier to log info message.");
-logger.LogFatal("sectionName", "subSection", "you can also have `subSection` in easier way.");
-logger.LogTrace("sectionName", "this log message will not be logged because we limit the `LevelLimit` to `Info`");
+logger.Log(LogLevel.Info, "SectionName", "Your log message.");
+logger.Log(LogLevel.Warn, "SectionName", "SubsectionName", "Your log message.");
+logger.LogInfo("SectionName", "Easier way to log info message.");
+logger.LogFatal("SectionName", "Subsection", "Easier way to log fatal message with subsection.");
+logger.LogTrace("SectionName", "This log message will not be logged because we limit the `LevelLimit` to `Info`");
 ```
-将会产生如下输出(控制台):
+
+将会产生如下输出(控制台):  
+This will produce the following output (in the console):  
+
 ```log
-[20:56:33.2] [Info:sectionName]: Your log message.
-[20:56:33.3] [Warn:sectionName/subSectionName]: Your log message.
-[20:56:33.3] [Info:sectionName]: easier to log info message.
-[20:56:33.3] [Fatal:sectionName/subSection]: you can also have `subSection` in easier way.
+[20:47:45.9] [Info:SectionName]: Your log message.
+[20:47:45.9] [Warn:SectionName/SubsectionName]: Your log message.
+[20:47:45.9] [Info:SectionName]: Easier way to log info message.
+[20:47:45.9] [Fatal:SectionName/Subsection]: Easier way to log fatal message with subsection.
 ```
 
-## 更多实例
-如果你不满足于目前的日志格式,那么你可以使用建造器的`WithFormatter`方法指定格式化器,
-该方法接受一个LogFormatter委托实例,原型如下:  
+## 更多实例 More Examples
+如果你不满足于目前的日志格式, 那么你可以使用 `AddLogHandler` 的 `LogHandler` 重载, 它会将传递所有的原始日志参数,
+例如你可以获取其中的 `logLevel` 参数并对日志上色.  
+If you are not satisfied with the current log format, you can use the `LogHandler` overload of `AddLogHandler`.
+This method passes all the original log parameters,
+allowing you to customize the log format, such as coloring the logs based on the `logLevel`.  
+
+`LogHandler` 原型如下:  
+The `LogHandler` delegate is defined as follows:
 ```C#
-public delegate string LogFormatter(LogLevel logLevel,string section,string? subSection,string content);
+public delegate void LogHandler(LogLevel logLevel, string section, string? subsection, string content);
 ```
-特别注意,当未指定`subSection`时会将`null`传入  
-例如使用如下格式化器实例:
+
+当未指定 `subsection` 时 `null` 会被传入.  
+When the `subsection` is not specified, `null` will be passed.  
+
+此外还可以只单独指定格式化器, 例如使用如下格式化器实例:  
+You can also specify only a formatter, like the following example:  
+
 ```C#
-static string MyFormatter(LogLevel logLevel, string section, string subSection, string content)
+static string MyFormatter(LogLevel logLevel, string section, string subsection, string content)
     => $"「{DateTime.Now.TimeOfDay:hh\\:mm\\:ss\\.f} {logLevel} {section}" +
-    $"{(subSection is null ? "" : $"/{subSection}")}」 {content}";
-```
-会产生如下所示的日志效果:  
-```log
-「21:01:25.6 Info SomeSection」 这是一条log
-「21:01:25.6 Fatal SomeSection」 另一条fatal log
+    $"{(subsection is null ? "" : $"/{subsection}")}」 {content}";
 ```
 
-## 更多内容
-`Logger`接受一个`Exception`对象作为内容,同时加入前缀和后缀
-实例请见`Sample/Program.cs`文件
+并使用 `AddLogHandler` 的 `(FormattedLogHandler, LogFormatter)` 重载, 可以得到以下日志:  
+Using the `(FormattedLogHandler, LogFormatter)` overload of `AddLogHandler`, you can achieve logs like this:  
+
+```log
+「21:01:25.6 Info SomeSection」 This is a log
+「21:01:25.6 Fatal SomeSection」 Another fatal log
+```
+
+## 更多内容 Additional Information
+`Logger` 还可以接受一个 `Exception` 对象作为内容并可选地指定一个前缀 `prefix`.
+实例请见 `Sample/Program.cs` 文件.  
+The `Logger` can also accept an `Exception` object as the log content and optionally specify a `prefix`.
+For examples, see the `Sample/Program.cs` file.
